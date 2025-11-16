@@ -23,64 +23,16 @@
         </header>
 
         <div class="upload-section">
-            <div style="margin: 1rem;">
+            <div class="upload-buttons">
                 <input type="file" id="imageInput" accept="image/*">
                 <label for="imageInput" class="upload-btn">
-                    📁 Choose from Gallery
+                    📁 Gallery
                 </label>
-            </div>
-                
-            <div style="margin: 1rem;">
+                    
                 <input type="file" id="cameraInput" accept="image/*" capture="environment">
                 <label for="cameraInput" class="upload-btn camera-btn">
-                    📷 Take Photo
+                    📷 Camera
                 </label>
-            </div>
-        </div>
-
-        <div id="frameSelector" class="frame-selector hidden">
-            <div class="section-header">
-                <h2>✨ Frame Styles</h2>
-            </div>
-            <div class="frame-options">
-                <button class="frame-btn" data-style="classic"><span>Classic</span></button>
-                <button class="frame-btn" data-style="modern"><span>Modern</span></button>
-                <button class="frame-btn" data-style="ornate"><span>Ornate</span></button>
-                <button class="frame-btn" data-style="polaroid"><span>Polaroid</span></button>
-                <button class="frame-btn" data-style="shadow"><span>Shadow</span></button>
-                <button class="frame-btn" data-style="double"><span>Double</span></button>
-                <button class="frame-btn" data-style="neon"><span>Neon</span></button>
-                <button class="frame-btn" data-style="vintage"><span>Vintage</span></button>
-                <button class="frame-btn" data-style="emboss"><span>Emboss</span></button>
-            </div>
-            
-            <div class="section-header">
-                <h3>🎨 Frame Color</h3>
-            </div>
-            <div class="color-picker-section">
-                <div class="quick-colors">
-                    <button class="color-btn quick" data-color="#8B4513"><span>Wood</span></button>
-                    <button class="color-btn quick" data-color="#FFD700"><span>Gold</span></button>
-                    <button class="color-btn quick" data-color="#C0C0C0"><span>Silver</span></button>
-                    <button class="color-btn quick" data-color="#000000"><span>Black</span></button>
-                    <button class="color-btn quick" data-color="#FFFFFF" style="border: 2px solid #ddd;"><span>White</span></button>
-                    <button class="color-btn quick" data-color="#8B008B"><span>Purple</span></button>
-                </div>
-                <div class="color-wheel-container">
-                    <label for="colorInput">Custom Color</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="colorInput" value="#8B4513">
-                        <span id="colorHex">#8B4513</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slider-container">
-                <label for="frameWidth">
-                    <span class="slider-label">Frame Width</span>
-                    <span id="widthValue">20</span><span>px</span>
-                </label>
-                <input type="range" id="frameWidth" min="10" max="50" value="20">
             </div>
         </div>
 
@@ -89,9 +41,73 @@
         </div>
 
         <div id="downloadSection" class="download-section hidden">
-            <button id="downloadBtn" class="download-btn">Download Image</button>
-            <button id="resetBtn" class="reset-btn">Start Over</button>
+            <button id="downloadBtn" class="download-btn">📥 Download</button>
+            <button id="resetBtn" class="reset-btn">🔄 Reset</button>
         </div>
+
+        <div id="frameSelector" class="frame-selector hidden">
+            <div class="controls-panel">
+                <!-- <div class="corner-toggle">
+                    <label>Corners:</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" data-corner="rounded">◯</button>
+                        <button class="toggle-btn" data-corner="square">◻</button>
+                    </div>
+                </div> -->
+
+                <div class="color-section">
+                    <label for="colorInput">Color</label>
+                    <div class="color-quick-wrapper">
+                        <button class="color-btn quick" data-color="#8B4513" title="Wood"><span></span></button>
+                        <button class="color-btn quick" data-color="#FFD700" title="Gold"><span></span></button>
+                        <button class="color-btn quick" data-color="#C0C0C0" title="Silver"><span></span></button>
+                        <button class="color-btn quick" data-color="#000000" title="Black"><span></span></button>
+                        <button class="color-btn quick" data-color="#FFFFFF" style="border: 2px solid #ddd;" title="White"><span></span></button>
+                        <button class="color-btn quick" data-color="#8B008B" title="Purple"><span></span></button>
+                    </div>
+                    <input type="color" id="colorInput" value="#8B4513">
+                    <span id="colorHex">#8B4513</span>
+                </div>
+
+                <div class="width-section">
+                    <label for="frameWidth">Width: <span id="widthValue">20</span>px</label>
+                    <input type="range" id="frameWidth" min="10" max="50" value="20">
+                </div>
+            </div>
+
+            <div class="frame-tabs">
+                <button class="tab-btn active" data-tab="modern">Modern</button>
+                <button class="tab-btn" data-tab="classic">Classic</button>
+                <button class="tab-btn" data-tab="special">Special</button>
+            </div>
+
+            <div class="frame-grid">
+                <div id="modern" class="frame-tab-content active">
+                    <button class="frame-btn" data-style="classic"><span>Classic</span></button>
+                    <button class="frame-btn" data-style="modern"><span>Modern</span></button>
+                    <button class="frame-btn" data-style="architectural"><span>Arch</span></button>
+                    <button class="frame-btn" data-style="minimalist"><span>Minimal</span></button>
+                    <button class="frame-btn" data-style="neon"><span>Neon</span></button>
+                    <button class="frame-btn" data-style="shadow"><span>Shadow</span></button>
+                </div>
+
+                <div id="classic" class="frame-tab-content">
+                    <button class="frame-btn" data-style="polaroid"><span>Polaroid</span></button>
+                    <button class="frame-btn" data-style="victorian"><span>Victorian</span></button>
+                    <button class="frame-btn" data-style="classical"><span>Classical</span></button>
+                    <button class="frame-btn" data-style="ornate"><span>Ornate</span></button>
+                    <button class="frame-btn" data-style="vintage"><span>Vintage</span></button>
+                    <button class="frame-btn" data-style="double"><span>Double</span></button>
+                </div>
+
+                <div id="special" class="frame-tab-content">
+                    <button class="frame-btn" data-style="emboss"><span>Emboss</span></button>
+                    <button class="frame-btn" data-style="metallic"><span>Metallic</span></button>
+                </div>
+            </div>
+        </div>
+
+        
     </div>
 
     <script src="app.js"></script>
