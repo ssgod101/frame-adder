@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add beautiful frames to your photos with customizable styles and colors. Works offline as a Progressive Web App.">
     <meta name="theme-color" content="#4CAF50">
+    <!-- <meta name="color-scheme" content="light dark"> -->
     <title>Photo Frame App</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%234CAF50;stop-opacity:1' /><stop offset='100%' style='stop-color:%232E7D32;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)' rx='45'/><rect x='30' y='30' width='132' height='132' fill='none' stroke='white' stroke-width='8' rx='8'/><circle cx='96' cy='75' r='12' fill='white'/><path d='M 30 130 L 80 70 L 120 100 L 162 50' stroke='white' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%234CAF50;stop-opacity:1' /><stop offset='100%' style='stop-color:%232E7D32;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)' rx='45'/><rect x='30' y='30' width='132' height='132' fill='none' stroke='white' stroke-width='8' rx='8'/><circle cx='96' cy='75' r='12' fill='white'/><path d='M 30 130 L 80 70 L 120 100 L 162 50' stroke='white' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Photo Frame">
@@ -14,39 +18,68 @@
 <body>
     <div class="container">
         <header>
-            <h1>📸 Photo Frame</h1>
+            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%234CAF50;stop-opacity:1' /><stop offset='100%' style='stop-color:%232E7D32;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)' rx='45'/><rect x='30' y='30' width='132' height='132' fill='none' stroke='white' stroke-width='8' rx='8'/><circle cx='96' cy='75' r='12' fill='white'/><path d='M 30 130 L 80 70 L 120 100 L 162 50' stroke='white' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" alt="Photo Frame App Logo" class="logo">
+            <h1>Photo Frame</h1>
         </header>
 
         <div class="upload-section">
-            <input type="file" id="imageInput" accept="image/*" capture="environment">
-            <label for="imageInput" class="upload-btn">
-                Choose Photo
-            </label>
+            <div style="margin: 1rem;">
+                <input type="file" id="imageInput" accept="image/*">
+                <label for="imageInput" class="upload-btn">
+                    📁 Choose from Gallery
+                </label>
+            </div>
+                
+            <div style="margin: 1rem;">
+                <input type="file" id="cameraInput" accept="image/*" capture="environment">
+                <label for="cameraInput" class="upload-btn camera-btn">
+                    📷 Take Photo
+                </label>
+            </div>
         </div>
 
         <div id="frameSelector" class="frame-selector hidden">
-            <h2>Select Frame Style</h2>
+            <div class="section-header">
+                <h2>✨ Frame Styles</h2>
+            </div>
             <div class="frame-options">
-                <button class="frame-btn" data-style="classic">Classic</button>
-                <button class="frame-btn" data-style="modern">Modern</button>
-                <button class="frame-btn" data-style="ornate">Ornate</button>
-                <button class="frame-btn" data-style="polaroid">Polaroid</button>
-                <button class="frame-btn" data-style="shadow">Shadow</button>
-                <button class="frame-btn" data-style="double">Double</button>
+                <button class="frame-btn" data-style="classic"><span>Classic</span></button>
+                <button class="frame-btn" data-style="modern"><span>Modern</span></button>
+                <button class="frame-btn" data-style="ornate"><span>Ornate</span></button>
+                <button class="frame-btn" data-style="polaroid"><span>Polaroid</span></button>
+                <button class="frame-btn" data-style="shadow"><span>Shadow</span></button>
+                <button class="frame-btn" data-style="double"><span>Double</span></button>
+                <button class="frame-btn" data-style="neon"><span>Neon</span></button>
+                <button class="frame-btn" data-style="vintage"><span>Vintage</span></button>
+                <button class="frame-btn" data-style="emboss"><span>Emboss</span></button>
             </div>
             
-            <h3>Frame Color</h3>
-            <div class="color-options">
-                <button class="color-btn" data-color="#8B4513" style="background: #8B4513;">Wood</button>
-                <button class="color-btn" data-color="#FFD700" style="background: #FFD700;">Gold</button>
-                <button class="color-btn" data-color="#C0C0C0" style="background: #C0C0C0;">Silver</button>
-                <button class="color-btn" data-color="#000000" style="background: #000000;">Black</button>
-                <button class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF; border: 1px solid #ccc;">White</button>
-                <button class="color-btn" data-color="#8B008B" style="background: #8B008B;">Purple</button>
+            <div class="section-header">
+                <h3>🎨 Frame Color</h3>
+            </div>
+            <div class="color-picker-section">
+                <div class="quick-colors">
+                    <button class="color-btn quick" data-color="#8B4513"><span>Wood</span></button>
+                    <button class="color-btn quick" data-color="#FFD700"><span>Gold</span></button>
+                    <button class="color-btn quick" data-color="#C0C0C0"><span>Silver</span></button>
+                    <button class="color-btn quick" data-color="#000000"><span>Black</span></button>
+                    <button class="color-btn quick" data-color="#FFFFFF" style="border: 2px solid #ddd;"><span>White</span></button>
+                    <button class="color-btn quick" data-color="#8B008B"><span>Purple</span></button>
+                </div>
+                <div class="color-wheel-container">
+                    <label for="colorInput">Custom Color</label>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="colorInput" value="#8B4513">
+                        <span id="colorHex">#8B4513</span>
+                    </div>
+                </div>
             </div>
 
             <div class="slider-container">
-                <label for="frameWidth">Frame Width: <span id="widthValue">20</span>px</label>
+                <label for="frameWidth">
+                    <span class="slider-label">Frame Width</span>
+                    <span id="widthValue">20</span><span>px</span>
+                </label>
                 <input type="range" id="frameWidth" min="10" max="50" value="20">
             </div>
         </div>

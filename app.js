@@ -13,6 +13,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 const resetBtn = document.getElementById('resetBtn');
 const frameWidth = document.getElementById('frameWidth');
 const widthValue = document.getElementById('widthValue');
+const colorInput = document.getElementById('colorInput');
+const colorHex = document.getElementById('colorHex');
 
 // Register Service Worker
 if ('serviceWorker' in navigator) {
@@ -43,20 +45,31 @@ imageInput.addEventListener('change', (e) => {
 document.querySelectorAll('.frame-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         document.querySelectorAll('.frame-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        currentFrameStyle = e.target.dataset.style;
+        e.currentTarget.classList.add('active');
+        currentFrameStyle = e.currentTarget.dataset.style;
         applyFrame();
     });
 });
 
-// Color buttons
-document.querySelectorAll('.color-btn').forEach(btn => {
+// Quick color buttons
+document.querySelectorAll('.color-btn.quick').forEach(btn => {
     btn.addEventListener('click', (e) => {
         document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        currentFrameColor = e.target.dataset.color;
+        e.currentTarget.classList.add('active');
+        const color = e.currentTarget.dataset.color;
+        currentFrameColor = color;
+        colorInput.value = color;
+        colorHex.textContent = color;
         applyFrame();
     });
+});
+
+// Color wheel input
+colorInput.addEventListener('input', (e) => {
+    currentFrameColor = e.target.value;
+    colorHex.textContent = e.target.value;
+    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+    applyFrame();
 });
 
 // Frame width slider
@@ -97,6 +110,15 @@ function applyFrame() {
             break;
         case 'double':
             drawDoubleFrame(frameSize);
+            break;
+        case 'neon':
+            drawNeonFrame(frameSize);
+            break;
+        case 'vintage':
+            drawVintageFrame(frameSize);
+            break;
+        case 'emboss':
+            drawEmbossFrame(frameSize);
             break;
     }
 
@@ -206,6 +228,74 @@ function drawDoubleFrame(size) {
     ctx.strokeRect(size, size, originalImage.width, originalImage.height);
 }
 
+function drawNeonFrame(size) {
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Neon glow effect
+    const neonColor = currentFrameColor;
+    ctx.shadowColor = neonColor;
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    
+    ctx.strokeStyle = neonColor;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(size - 2, size - 2, originalImage.width + 4, originalImage.height + 4);
+    
+    // Double line effect
+    ctx.lineWidth = 1;
+    ctx.strokeRect(size - 5, size - 5, originalImage.width + 10, originalImage.height + 10);
+    ctx.shadowColor = 'transparent';
+}
+
+function drawVintageFrame(size) {
+    // Sepia tone background
+    ctx.fillStyle = '#c9a876';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Darker edges
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, 'rgba(0, 0, 0, 0.3)');
+    gradient.addColorStop(0.5, 'rgba(0, 0, 0, 0)');
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Decorative borders
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(size - 3, size - 3, originalImage.width + 6, originalImage.height + 6);
+    
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(size + 2, size + 2, originalImage.width - 4, originalImage.height - 4);
+}
+
+function drawEmbossFrame(size) {
+    // Light base
+    ctx.fillStyle = '#e8e8e8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Create emboss effect with gradients
+    const innerGradient = ctx.createLinearGradient(size, size, size + 10, size + 10);
+    innerGradient.addColorStop(0, 'rgba(0, 0, 0, 0.4)');
+    innerGradient.addColorStop(1, 'rgba(255, 255, 255, 0.6)');
+    ctx.fillStyle = innerGradient;
+    ctx.fillRect(0, 0, size, canvas.height);
+    ctx.fillRect(size, 0, canvas.width - size, size);
+    
+    // Inner frame border
+    ctx.strokeStyle = currentFrameColor;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(size, size, originalImage.width, originalImage.height);
+    
+    // Highlight
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(size + 2, size + 2, originalImage.width - 4, originalImage.height - 4);
+}
+
 // Helper function to shade colors
 function shadeColor(color, percent) {
     const num = parseInt(color.replace("#",""), 16);
@@ -233,6 +323,12 @@ resetBtn.addEventListener('click', () => {
     canvasContainer.classList.add('hidden');
     downloadSection.classList.add('hidden');
     imageInput.value = '';
+    currentFrameColor = '#8B4513';
+    currentFrameWidth = 20;
+    frameWidth.value = '20';
+    widthValue.textContent = '20';
+    colorInput.value = '#8B4513';
+    colorHex.textContent = '#8B4513';
     document.querySelectorAll('.frame-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
 });
