@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Photo Frame App</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Photo Frame">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📸 Photo Frame</h1>
+        </header>
+
+        <div class="upload-section">
+            <input type="file" id="imageInput" accept="image/*" capture="environment">
+            <label for="imageInput" class="upload-btn">
+                Choose Photo
+            </label>
+        </div>
+
+        <div id="frameSelector" class="frame-selector hidden">
+            <h2>Select Frame Style</h2>
+            <div class="frame-options">
+                <button class="frame-btn" data-style="classic">Classic</button>
+                <button class="frame-btn" data-style="modern">Modern</button>
+                <button class="frame-btn" data-style="ornate">Ornate</button>
+                <button class="frame-btn" data-style="polaroid">Polaroid</button>
+                <button class="frame-btn" data-style="shadow">Shadow</button>
+                <button class="frame-btn" data-style="double">Double</button>
+            </div>
+            
+            <h3>Frame Color</h3>
+            <div class="color-options">
+                <button class="color-btn" data-color="#8B4513" style="background: #8B4513;">Wood</button>
+                <button class="color-btn" data-color="#FFD700" style="background: #FFD700;">Gold</button>
+                <button class="color-btn" data-color="#C0C0C0" style="background: #C0C0C0;">Silver</button>
+                <button class="color-btn" data-color="#000000" style="background: #000000;">Black</button>
+                <button class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF; border: 1px solid #ccc;">White</button>
+                <button class="color-btn" data-color="#8B008B" style="background: #8B008B;">Purple</button>
+            </div>
+
+            <div class="slider-container">
+                <label for="frameWidth">Frame Width: <span id="widthValue">20</span>px</label>
+                <input type="range" id="frameWidth" min="10" max="50" value="20">
+            </div>
+        </div>
+
+        <div id="canvasContainer" class="canvas-container hidden">
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <div id="downloadSection" class="download-section hidden">
+            <button id="downloadBtn" class="download-btn">Download Image</button>
+            <button id="resetBtn" class="reset-btn">Start Over</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
