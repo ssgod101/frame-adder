@@ -190,25 +190,6 @@ input[type="file"] {
     white-space: nowrap;
 }
 
-.frame-only-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0;
-    background: none;
-    margin: 0;
-    border-radius: 0;
-    grid-column: 1 / -1;
-}
-
-.frame-only-toggle label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-    white-space: nowrap;
-}
-
 .toggle-group {
     display: flex;
     gap: 4px;

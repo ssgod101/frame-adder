@@ -37,7 +37,6 @@ let currentFrameStyle = 'classic';
 let currentFrameColor = '#8B4513';
 let currentFrameWidth = 1.0; // Width in inches
 let cornerStyle = 'rounded';
-let frameOnlyMode = false; // Toggle for frame-only preview
 const DPI = 96; // Screen DPI (standard screen DPI)
 const INCH_TO_PX = DPI; // Conversion factor for screen display
 const CM_TO_INCH = 1 / 2.54; // For reference if needed
@@ -135,28 +134,6 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
         applyFrame();
     });
 });
-
-// Frame-only mode toggle
-const frameImageToggle = document.getElementById('frameImageToggle');
-const frameOnlyToggle = document.getElementById('frameOnlyToggle');
-
-if (frameImageToggle) {
-    frameImageToggle.addEventListener('click', (e) => {
-        frameImageToggle.classList.add('active');
-        frameOnlyToggle.classList.remove('active');
-        frameOnlyMode = false;
-        applyFrame();
-    });
-}
-
-if (frameOnlyToggle) {
-    frameOnlyToggle.addEventListener('click', (e) => {
-        frameOnlyToggle.classList.add('active');
-        frameImageToggle.classList.remove('active');
-        frameOnlyMode = true;
-        applyFrame();
-    });
-}
 
 // Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -271,20 +248,14 @@ function applyFrame() {
 
 // Display image dimensions in inches
 function displayImageDimensions() {
-    if (frameOnlyMode) {
-        // In frame-only mode, show the test area size and frame thickness
-        imageDimensions.textContent = `Test Area: 8.5" × 11" (Letter Size - Print at 100%)`;
-        frameInfo.textContent = `Frame Thickness: ${currentFrameWidth.toFixed(2)}" | Measure printed frame to verify accuracy`;
-    } else {
-        // Convert pixels to inches (assuming 96 DPI screen)
-        const widthIn = (originalImage.width / INCH_TO_PX).toFixed(2);
-        const heightIn = (originalImage.height / INCH_TO_PX).toFixed(2);
-        const totalWidthIn = ((originalImage.width + currentFrameWidth * INCH_TO_PX * 2) / INCH_TO_PX).toFixed(2);
-        const totalHeightIn = ((originalImage.height + currentFrameWidth * INCH_TO_PX * 2) / INCH_TO_PX).toFixed(2);
-        
-        imageDimensions.textContent = `Image: ${widthIn}" × ${heightIn}"`;
-        frameInfo.textContent = `With Frame (${currentFrameWidth.toFixed(2)}"): ${totalWidthIn}" × ${totalHeightIn}"`;
-    }
+    // Convert pixels to inches (assuming 96 DPI screen)
+    const widthIn = (originalImage.width / INCH_TO_PX).toFixed(2);
+    const heightIn = (originalImage.height / INCH_TO_PX).toFixed(2);
+    const totalWidthIn = ((originalImage.width + currentFrameWidth * INCH_TO_PX * 2) / INCH_TO_PX).toFixed(2);
+    const totalHeightIn = ((originalImage.height + currentFrameWidth * INCH_TO_PX * 2) / INCH_TO_PX).toFixed(2);
+    
+    imageDimensions.textContent = `Image: ${widthIn}" × ${heightIn}"`;
+    frameInfo.textContent = `With Frame (${currentFrameWidth.toFixed(2)}"): ${totalWidthIn}" × ${totalHeightIn}"`;
     dimensionsDisplay.classList.remove('hidden');
 }
 
