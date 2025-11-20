@@ -162,8 +162,18 @@ function applyFrame() {
 
     // Convert frame width from inches to pixels for screen display
     const frameSizePixels = currentFrameWidth * INCH_TO_PX;
-    const imageWidth = originalImage.width;
-    const imageHeight = originalImage.height;
+    
+    // In frame-only mode, show a full letter-size page (8.5" x 11") for testing on standard paper
+    let imageWidth = originalImage.width;
+    let imageHeight = originalImage.height;
+    
+    if (frameOnlyMode) {
+        // Create an 8.5" x 11" frame swatch (letter-size paper) for testing print dimensions
+        // This allows you to print and test on standard paper without scaling
+        imageWidth = 8.5 * INCH_TO_PX;
+        imageHeight = 11 * INCH_TO_PX;
+    }
+    
     const padding = frameSizePixels * 2;
     
     canvas.width = imageWidth + padding;
@@ -217,8 +227,14 @@ function applyFrame() {
             break;
     }
 
-    // Draw image on the frame
-    ctx.drawImage(originalImage, frameSizePixels, frameSizePixels, originalImage.width, originalImage.height);
+    // Draw image only if not in frame-only mode
+    if (!frameOnlyMode) {
+        ctx.drawImage(originalImage, frameSizePixels, frameSizePixels, originalImage.width, originalImage.height);
+    } else {
+        // In frame-only mode, fill the center with white to show the frame clearly
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(frameSizePixels, frameSizePixels, imageWidth, imageHeight);
+    }
 
     // Apply corner radius to the entire canvas
     applyCanvasCornerRadius(frameSizePixels);
