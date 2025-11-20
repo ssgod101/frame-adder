@@ -215,14 +215,8 @@ function applyFrame() {
             break;
     }
 
-    // Draw image only if not in frame-only mode
-    if (!frameOnlyMode) {
-        ctx.drawImage(originalImage, frameSizePixels, frameSizePixels, originalImage.width, originalImage.height);
-    } else {
-        // In frame-only mode, fill the center with white to show the frame clearly
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(frameSizePixels, frameSizePixels, imageWidth, imageHeight);
-    }
+    // Draw image on the frame
+    ctx.drawImage(originalImage, frameSizePixels, frameSizePixels, originalImage.width, originalImage.height);
 
     // Apply corner radius to the entire canvas
     applyCanvasCornerRadius(frameSizePixels);
