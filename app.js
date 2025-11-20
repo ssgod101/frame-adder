@@ -162,22 +162,10 @@ function applyFrame() {
 
     // Convert frame width from inches to pixels for screen display
     const frameSizePixels = currentFrameWidth * INCH_TO_PX;
-    
-    // In frame-only mode, show a full letter-size page (8.5" x 11") for testing on standard paper
-    let imageWidth = originalImage.width;
-    let imageHeight = originalImage.height;
-    
-    if (frameOnlyMode) {
-        // Create an 8.5" x 11" frame swatch (letter-size paper) for testing print dimensions
-        // This allows you to print and test on standard paper without scaling
-        imageWidth = 8.5 * INCH_TO_PX;
-        imageHeight = 11 * INCH_TO_PX;
-    }
-    
     const padding = frameSizePixels * 2;
     
-    canvas.width = imageWidth + padding;
-    canvas.height = imageHeight + padding;
+    canvas.width = originalImage.width + padding;
+    canvas.height = originalImage.height + padding;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
